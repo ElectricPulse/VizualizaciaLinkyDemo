@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg27004"
+   width="3748"
+   height="1440"
+   viewBox="0 0 3748 1440"
+   sodipodi:docname="sectors.png"
+   inkscape:export-filename="14.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs27008" />
+  <sodipodi:namedview
+     id="namedview27006"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g27010">
+    <path
+       style="fill:none;stroke:#727272"
+       d="m 2447.6,418.028 c 2.79,-2.207 7.69,-1.028 11.4,-1.028 h 29 c 3.87,0 9.53,-1.482 11.97,1.603 1.94,2.443 1.03,8.286 1.03,11.397 v 30 c 0,6.197 2.87,25.512 -2.32,28.972 -3,2.001 -7.96,1.028 -11.68,1.028 h -29 c -3.92,0 -8.69,1.103 -10.97,-2.318 -1.87,-2.801 -1.03,-8.309 -1.03,-11.682 v -29 c 0,-5.643 -2.59,-25.65 1.6,-28.972"
+       id="path27594" />
+  </g>
+</svg>
