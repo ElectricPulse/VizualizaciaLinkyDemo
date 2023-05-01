@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 
-import Input from '@shared/components/Input'
+import Input from '@lib/components/Input'
 import Svg from '/logic/objects/svg'
 import Transporter from './Transporter'
 

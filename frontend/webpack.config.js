@@ -17,18 +17,17 @@ const path = require('path')
 
 module.exports = {
 	mode: 'development',
-	context: __dirname,
 	entry: './src/index.js',
 	devServer: {
 		port: 8080,
 		proxy: {
-			'/api': 'http://localhost:8081',
+			'/api': 'http://localhost:8082',
 		}
 	},
 	resolve: {
 		roots: [path.resolve('./src')],
 		alias: {
-			'@shared': path.resolve(__dirname, 'lib')
+			'@lib': path.resolve(__dirname, 'lib/out')
 		}
 	},
  	module: {

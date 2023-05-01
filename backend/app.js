@@ -43,6 +43,6 @@ http.createServer(function (req, res) {
 			console.log("Invalid route: ", url[2])
 
 	}
-}).listen(8081, function() {
+}).listen(8082, function() {
 	console.log("Server started")
 })

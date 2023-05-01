@@ -1,30 +1,24 @@
 {
-  "name": "CanvasDemo",
+  "name": "frontend-admin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack build --config webpack.config.js",
     "start": "webpack serve --config webpack.config.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/core": "^7.21.5",
     "@babel/preset-react": "^7.18.6",
     "babel-loader": "^9.1.2",
     "babel-preset-react": "^6.24.1",
-    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
+    "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.2",
-    "webpack": "^5.78.0",
+    "webpack": "^5.81.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.2"
+    "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
     "install": "^0.13.0",

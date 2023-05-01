@@ -1,7 +1,7 @@
 import Node from "/logic/primitives";
 import fetchSvg from "/util/fetchSvg";
-import findProperty from "@shared/findProperty"
-import getRange from '@shared/getRange'
+import findProperty from "@lib/findProperty"
+import getRange from '@lib/getRange'
 import { getVectorAngle } from "/util/vector";
 import { getContext } from '/logic/graphicsState'
 

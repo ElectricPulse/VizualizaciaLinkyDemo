@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack build --config webpack.config.js",
-    "start": "webpack serve --config webpack.config.js"
+    "build": "webpack build --watch --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +27,7 @@
   "dependencies": {
     "install": "^0.13.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }
