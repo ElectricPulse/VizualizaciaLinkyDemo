@@ -2,7 +2,7 @@
   "name": "CanvasDemo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/bundle.js",
   "scripts": {
     "build": "webpack build --watch --config webpack.config.js"
   },

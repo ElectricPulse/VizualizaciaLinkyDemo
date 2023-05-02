@@ -14,6 +14,7 @@ const assetsPlugin = new CopyWebpackPlugin({
 });
 
 const path = require('path')
+const lib_dir = path.resolve(__dirname, '../lib/src')
 
 module.exports = {
 	mode: 'development',
@@ -27,7 +28,7 @@ module.exports = {
 	resolve: {
 		roots: [path.resolve('./src')],
 		alias: {
-			'@lib': path.resolve(__dirname, 'lib/out')
+			'@lib': lib_dir
 		}
 	},
  	module: {
@@ -35,9 +36,19 @@ module.exports = {
 		{
 			test: /\.js$/,
 	   		exclude: /node_modules/,
+			include: [
+				path.resolve(__dirname),
+				lib_dir
+
+			],
    			use: {
-     				loader: "babel-loader"
-   			}
+				loader: 'babel-loader',
+				options: {
+					presets: [
+						[{presets: ['@babel/preset-react']}]
+					],
+				},
+			}
 		},
  		{
   			test: /\.css$/,

@@ -26,7 +26,7 @@ export default function(props) {
 			getTrans={() => transHandler(s.id)}
 		/>
 	})}
-	<Input type="range" ref={sliderRef} range={[-100, 100]} step={0.1} onChange={(val) => sliderRef.current = val}/>
+		<Input type="range" ref={sliderRef} range={[-100, 100]} step={0.1} onChange={(val) => sliderRef.current = val}/>
 	</>
 
 }

@@ -1,12 +1,12 @@
 import { createRoot } from 'react-dom/client'; 
 import React from 'react';
-import { Input } from '@lib/bundle'
-
+import Dashboard from './components/Dashboard'
 
 const App = () => {
+	debugger
 	return <> 
 		<h1>Vizualizacia linky - admin panel</h1>
-		<Input/>
+		<Dashboard/>
 	</>
 }
 
