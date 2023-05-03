@@ -22,7 +22,7 @@ export default function main() {
 
 	//Add useRender() and useRenderState() hook to circumvent the getTransform callbacks
 	//Add hook to simplify bitwise mask for the individual async operations
-	function fetchSectors(sectors) {
+	function fetchSectorsSvg(sectors) {
 		//The callback wont get called unless the image exists - make it work based on the sectors data
 		for(const sector of sectors) 
 			new Svg(`/assets/images/sectors/${sector.id}.svg`, [0, 0], conf.res, (obj) => {
@@ -51,7 +51,7 @@ export default function main() {
 	}
 
 		
-	function fetchData(init) {
+	function fetchSectors(init) {
 		return fetch('/api/transporters').then((res) => {
 			if(res.status !== 200)
 				return
@@ -60,7 +60,7 @@ export default function main() {
 		}).then((data) => {
 			setSectors(data)
 			if(init)
-				fetchSectors(data)
+				fetchSectorsSvg(data)
 		})
 	}
 
@@ -68,8 +68,8 @@ export default function main() {
 	useEffect(() => {
 		const background = new Background(backgroundImg, [0, -3])
 		
-		fetchData(true)
-		setInterval(fetchData, FETCH_TOUT)
+		fetchSectors(true)
+		setInterval(fetchSectors, FETCH_TOUT)
 		background.pack()
 		
 		new Svg(sectorsSvg, [0, 0], conf.res, (obj) => {

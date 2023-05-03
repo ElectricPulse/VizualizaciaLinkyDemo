@@ -100,7 +100,7 @@ export default class extends Node {
 
 		if(pathLength > this.length)
 			pathLength = this.length
-		else if(pathLength < 0)
+		if(pathLength < 0)
 			pathLength = 0
 
 

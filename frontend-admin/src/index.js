@@ -3,7 +3,6 @@ import React from 'react';
 import Dashboard from './components/Dashboard'
 
 const App = () => {
-	debugger
 	return <> 
 		<h1>Vizualizacia linky - admin panel</h1>
 		<Dashboard/>

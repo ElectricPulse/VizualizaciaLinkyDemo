@@ -2,8 +2,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 const htmlPlugin = new HtmlWebPackPlugin({
- template: "./src/index.html",
- filename: "./index.html"
+	template: "./src/index.html",
+	filename: "./index.html"
 });
 
 //Need this so that images can be fetched (not imported -> turns the images to specific ids that are hosted on the server) -- FOR DEVSERVER
@@ -29,7 +29,8 @@ module.exports = {
 		roots: [path.resolve('./src')],
 		alias: {
 			'@lib': lib_dir
-		}
+		},
+    		modules: [path.resolve(__dirname, 'node_modules')]
 	},
  	module: {
 		rules: [
@@ -61,5 +62,6 @@ module.exports = {
 			}
 		}
 	]},
+
 	plugins: [htmlPlugin, assetsPlugin]
 };

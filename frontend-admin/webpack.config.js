@@ -16,8 +16,9 @@ module.exports = {
 	resolve: {
 		roots: [path.resolve('./src')],
 		alias: {
-			'@lib': path.resolve('../lib/out')
-		}
+			'@lib': path.resolve('../lib/src')
+		},
+		modules: [path.resolve(__dirname, 'node_modules')]
 	},	
 	module: {
 		rules: [
@@ -25,7 +26,12 @@ module.exports = {
 			test: /\.js$/,
 	   		exclude: /node_modules/,
    			use: {
-     				loader: "babel-loader"
+     				loader: "babel-loader",
+				options: {
+					presets: [
+						[{presets: ['@babel/preset-react']}]
+					],
+				}
    			}
 		},
  		{

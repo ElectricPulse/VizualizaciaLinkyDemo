@@ -15,9 +15,28 @@ connection.connect(function(err) {
 		console.log("Connected to database")
 })
 
+const SQL_UPDATE_SECTOR = `
+	UPDATE sectors SET carrier=? where id=?
+`
+
 const SQL_FETCH_SECTORS = `
 	SELECT * from sectors;
 `
+
+function sendStatus(res, code) {
+	res.writeHead(500)
+	res.end()
+}
+
+function handleErr(res, err) {
+	if(err) {
+		console.error(err)
+		sendStatus(res, 500)
+		return true
+	}
+
+	return false
+}
 
 http.createServer(function (req, res) {
 	const url = req.url.split('/')
@@ -31,13 +50,34 @@ http.createServer(function (req, res) {
 	switch(url[2]) {
 		case 'transporters':
 			connection.query(SQL_FETCH_SECTORS, (err, data) => {
-				if(err)
-					console.error(err)
+				if(handleErr(res, err)) 
+					return
 		
 				res.writeHead(200, {'Content-Type': 'application/json'})
 				res.end(JSON.stringify(data))
 			})
 
+			break;
+		case 'sector':
+			if(req.method !== 'POST')
+				return
+
+			let body = ''
+
+			req.on('data', function(data) {
+				body += data	
+			})
+
+			req.on('end', function() {
+				const [ sectorId , carrierId ] = JSON.parse(body)
+
+				connection.query(SQL_UPDATE_SECTOR, [carrierId, sectorId], (err) => {
+					if(handleErr(res, err)) 
+						return
+
+					sendStatus(res, 200)
+				})
+			})
 			break;
 		default:
 			console.log("Invalid route: ", url[2])
