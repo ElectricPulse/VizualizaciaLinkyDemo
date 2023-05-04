@@ -33,14 +33,24 @@ function getVerticies(pos, rot, dimensions, fillet) {
 	return verticies
 }
 
+function rayCast(polygon, mouse) {
+	let n = 0
+	for(let i = 0; i < polygon.length; ++i) {
+		const b = polygon[i]
+		const a = polygon[i+1 === polygon.length ? 0: i+1]
+		const slope = (mouse[1] - a[1]) / (b[1] - a[1])
+
+		if((mouse[1] < a[1] !== mouse[1] < b[1]) && mouse[0] < a[0] + slope * (b[0] - a[0])) {
+			++n;
+		}
+
+	}
+	return n;
+}
+
 export default class extends Node {
 	constructor(pos, size, rot, fill, fillet) {
-		super(() => [
-			this.pos[0]-this.hSize[0],
-			this.pos[1]-this.hSize[1],
-			this.pos[0]+this.hSize[0],
-			this.pos[1]+this.hSize[1]
-		])
+		super((mouse) => !!(rayCast(this.polygon, mouse) % 2))
 
 		this.hSize = [size[0]/2, size[1]/2]
 		this.size = size
@@ -51,8 +61,9 @@ export default class extends Node {
 		this.fillet = fillet
 	}
 	
-	hoverEvent(hover) {
+	_hoverEvent(hover) {
 		this.currentFill = hover ? '#ff0000': this.fill
+		this.hoverEvent(hover)
 	}
 
 	moveTo(pos) {
@@ -61,17 +72,17 @@ export default class extends Node {
 
 	rotateAt(angle) {
 		this.angle = angle
-	}	
+	}
 
 	draw(context) {
+		this.polygon = getVerticies(this.pos, this.rot, this.size, this.fillet)
 		if(this.pos === undefined)
 			return
 
 		context.fillStyle = this.currentFill
-		const verticies = getVerticies(this.pos, this.rot, this.size, this.fillet)
 			
 		context.beginPath()
-		for(const vertex of verticies) {
+		for(const vertex of this.polygon) {
 			context.lineTo(...vertex)
 
 		}

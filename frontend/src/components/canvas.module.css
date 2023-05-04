@@ -1,0 +1,18 @@
+.container {
+	padding: 5vw;
+	position: relative;
+}
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	opacity: 0.5;
+	background-color: black;
+	text-align: center;
+}
+
+.overlay h3 { 
+	color: white;
+	font-size: 5rem;
+	opacity: 1;
+}

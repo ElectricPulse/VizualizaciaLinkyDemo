@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from 'react'
 import { getNodes, initGraphicsState } from './graphicsState'
 import clearCanvas from '/util/clearCanvas'
 
@@ -16,10 +17,6 @@ function mouseHandler(event) {
 	localState.mouse[1] =  (event.clientY - rect.top)/real_h * canvas.height
 }
 
-function initEvent() {
-	//execute initEvents in all state.nodes
-}
-
 function mainLoop(FPS, context) {
 	render(context)
 	setTimeout(() => mainLoop(FPS, context), 1000/FPS)
@@ -36,24 +33,43 @@ function render(context) {
 	}
 
 	for(const node of nodes) {
-		if(node?.loopEvent !== undefined)
-			node.loopEvent()
-
+		node.loopEvent()
 		node.draw(context)
+		
+		if(localState.mouse[0] === null)
+			continue
 
-		if(node?.hoverHandler !== undefined)
-			node.hoverHandler(localState.mouse) 
+		node._hoverHandler(localState.mouse) 
 	}
 }
 
-export function startVis(canvas, FPS) {
-	const context = canvas.getContext('2d')
+//These hooks are suppose to transform the OOP nature of react into pure functions
+export function useCanvas(FPS) {
+	const [ready, setReady] = useState(false)
+	const ref = useRef()
 
-	initGraphicsState(context)
+	useEffect(() => {
+		const canvas = ref.current
+		if(undefined === canvas) {
+			console.error("Used useCanvas() without assigning ref to the canvas element")
+			return
+		}
 
-	canvas.addEventListener("mousemove", mouseHandler)
+		const context = canvas.getContext('2d')
 
-	initEvent()	
-	mainLoop(FPS, context)
+		initGraphicsState(context)
+
+		canvas.addEventListener("mousemove", mouseHandler)
+
+		setReady(true)
+		mainLoop(FPS, context)
+
+		//Add deconstructor here !!
+	}, [])
+
+	return [ref, ready]
 }
 
+export function useDrawable() {
+
+}

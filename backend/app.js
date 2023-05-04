@@ -70,7 +70,7 @@ http.createServer(function (req, res) {
 
 			req.on('end', function() {
 				const [ sectorId , carrierId ] = JSON.parse(body)
-
+				
 				connection.query(SQL_UPDATE_SECTOR, [carrierId, sectorId], (err) => {
 					if(handleErr(res, err)) 
 						return

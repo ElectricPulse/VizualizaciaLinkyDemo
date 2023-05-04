@@ -7,7 +7,8 @@ import { getContext } from '/logic/graphicsState'
 
 export default class extends Node {
 	constructor(svgUrl, pos, width, onReady) {
-		super();
+		super()
+
 		this.pos = pos;
 		this.width = width;
 		this.image = null;

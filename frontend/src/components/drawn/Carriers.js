@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 
 import Range from '@lib/components/Range'
-import Svg from '/logic/objects/svg'
-import Transporter from './Transporter'
+import Carrier from './Carrier'
 
 export default function(props) {
 	const sliderRef = useRef(null)
@@ -19,11 +18,12 @@ export default function(props) {
 	return <>
 		<Range ref={sliderRef} range={[0, props.path.length]} step={0.1}/>
 		{ props.sectors.map((s) => {
-			if(s.carrier === 0)
+			if(s.carrier === null)
 				return
 
-			return <Transporter
-				index={s.carrier}
+			return <Carrier
+				carrierId={s.carrier}
+				sectorId={s.id}
 				key={s.carrier}
 				getTrans={() => transHandler(s.id)}
 			/>

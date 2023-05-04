@@ -21,6 +21,9 @@ export default function() {
 	}, [])
 
 	function inputHandler(sectorId, carrierId) {
+		if(carrierId === 0)
+			carrierId = null
+
 		const header = {
 			method: "POST",
 			body: JSON.stringify([sectorId, carrierId])
@@ -34,11 +37,13 @@ export default function() {
 
 	function mapInputs() {
 		const components = []
-		for(let i = 0; i < sectors.length; ++i)
-			components.push(<li key={i}>
-				<h2>Sector Number: {i}</h2>
-				<InputNumber initVal={sectors[i].carrier} onChange={(val) => inputHandler(i+1, val)} range={[0, 100]} step="1"/>
+		for(let i = 0; i < sectors.length; ++i) {
+			const sectorId = i+1
+			components.push(<li key={sectorId}>
+				<h2>Sector Number: {sectorId}</h2>
+				<InputNumber initVal={sectors[i].carrier} onChange={(val) => inputHandler(sectorId, val)} range={[0, 100]} step="1"/>
 			</li>)
+		}
 		return components
 	}
 
