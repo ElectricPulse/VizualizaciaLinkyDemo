@@ -17,8 +17,8 @@ export default class extends Rectangle {
 			return
 
 		const [ pos, rot ] = this.getTrans()
-		this.pos = pos
-		this.rot = rot
+		this.moveTo(pos)
+		this.rotateAt(rot)
 	}
 }
 

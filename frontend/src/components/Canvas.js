@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './canvas.module.css'
 
-import { useCanvas } from '/logic/graphics'
-
+import { useCanvasProvider } from '/logic/graphics'
+ 
 export default function(props) {
-	const [ref, ready] = useCanvas(props.fps)
+	//This whole second component tree for canvas is pretty wanky - need to clean up
+	const [ref, ready, dom] = useCanvasProvider(props.fps)
 
-	useEffect(() => {
-		if(props.width === undefined || props.height === undefined) {
-			console.error("Canvas has undefined width or height")
-			return
-		}
-	}, [])
-
-	return <div id='canvas_container' className={styles.container}>
-		<canvas ref={ref} width={props.width} height={props.height}/> 
+	//have to do a shallow copy of the children array here (for some reason)
+	return <section className={styles.sect}>
+		<div id="canvas_container" className={styles.container}>
+		<canvas ref={ref} className={styles.canvas} width={props.width} height={props.height}/> 
 		{ready && props.children}
-	</div>
+		{[...dom]}
+		</div>
+	</section>
 }
 

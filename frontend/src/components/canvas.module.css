@@ -1,5 +1,9 @@
+.sect {
+	display: flex;
+	justify-content: center;
+}
+
 .container {
-	padding: 5vw;
 	position: relative;
 }
 
@@ -9,6 +13,10 @@
 	opacity: 0.5;
 	background-color: black;
 	text-align: center;
+}
+
+.canvas {
+	display: block;
 }
 
 .overlay h3 { 

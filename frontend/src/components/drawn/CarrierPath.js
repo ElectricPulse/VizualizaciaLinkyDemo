@@ -1,24 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react'
-
-import Canvas from './Canvas'
-import Carriers from './drawn/Carriers'
-
-import styles from './Vis.module.css'
-import conf from '/canvasConf.json'
+import drawCarriers from './drawCarriers'
+import { canvasAdd } from '/components/Canvas'
 import Svg from '/logic/objects/svg'
-
-import Background from '/logic/objects/background'
-import backgroundImg from '/images/background.png'
 import sectorsSvg from '/images/sectors/sectors.svg'
 import pathSvg from '/images/path.svg'
 
 const FETCH_TOUT = 1000
 
+//Calculating the position of all the sectors based ... on the center of their svg :)
 function fetchSectorPos(sectors) {
 		return new Promise((res, rej) => {
 			const positions = []
 			for(const [index, sector] of sectors.entries()) 
-				new Svg(`/assets/images/sectors/${sector.id}.svg`, [0, 0], conf.res, (obj) => {	
+				new Svg(`/assets/images/sectors/${sector.id}.svg`, [0, 0], null, (obj) => {	
 					//Painfully calculating center of sector
 					const d = 0.01
 					const pos = [0, 0]
@@ -48,46 +41,33 @@ function fetchSectors() {
 
 		return res.json()
 	})
+}	
+
+let path = null
+let sectors = []
+let sectorPos = []
+let i = 0
+
+function done() {
+	if(++i == 2) {
+		const carriers = drawCarriers(path, sectors, sectorPos)
+	}
 }
 
-export default function main() {
-	const [ready, setReady] = useState(false)
-	const [path, setPath] = useState(null)
-	const [sectors, setSectors] = useState([])
-	const [sectorPos, setSectorPos] = useState([])
+export default function() {
+	fetchSectors()
+	.then((data) => {
+		sectors = data
+		return fetchSectorPos(data)
+	})
+	.then((pos) => {
+		sectorPos = pos
+		done()
+	})
 
-	useEffect(() => {
-		const background = new Background(backgroundImg, [0, -3])
-		background.pack()
-
-		fetchSectors()
-		.then((data) => {
-			setSectors(data) 
-			return fetchSectorPos(data)
-		})
-		.then((pos) => {
-			setSectorPos(pos)
-			setReady(true)
-		})
-
-		setInterval(() => {
-			fetchSectors().then(setSectors)
-		}, FETCH_TOUT)
-		
-		new Svg(sectorsSvg, [0, 0], conf.res, (obj) => {
-			obj.pack()
-		})
-
-		new Svg(pathSvg, [0, 0], conf.res, (obj) => {
-			obj.pack()
-			setPath(obj)
-		})	
-	}, [])
-	
-
-	return <section className={styles.container}>
-		<Canvas fps={conf.FPS} width={conf.res} height={conf.res * conf.aspect} ready={ready}>
-			{ ready && <Carriers path={path} sectors={sectors} sectorPos={sectorPos}/> }
-		</Canvas>
-	</section>
+	new Svg(pathSvg, [0, 0], null, (obj) => {
+		obj.pack()
+		path = obj
+		done()
+	})	
 }

@@ -1,4 +1,4 @@
-import Node from "/logic/primitives";
+import { Node } from "/logic/primitives";
 import fetchSvg from "/util/fetchSvg";
 import findProperty from "@lib/findProperty"
 import getRange from '@lib/getRange'
@@ -131,6 +131,10 @@ export default class extends Node {
 	}
 	draw(context) {
 		if (this.image === null) return;
+		
+		if(this.width === null)
+			this.width = context.canvas.width
+
 		context.drawImage(
 			this.image,
 			...this.pos,

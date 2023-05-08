@@ -1,4 +1,4 @@
-import Node from '/logic/primitives'
+import { Node } from '/logic/primitives'
 import { rotateVertexAroundOrigin } from '/util/vertex'
 
 function generateFillet([centerX, centerY], [width, height], fillet) {

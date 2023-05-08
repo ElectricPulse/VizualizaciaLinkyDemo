@@ -1,9 +1,7 @@
 .popup {
-	position: absolute;
 	background-color: white;
 	padding-inline: 10px;
 	padding-block: 5px;
-	transition: opacity 0.5s;
 	pointer-events: none;
 }
 
@@ -11,10 +9,3 @@
 	margin: 0px;
 }
 
-.popup[data-visible="true"] {
-	opacity: 100;
-}
-
-.popup[data-visible="false"] {
-	opacity: 0;
-}

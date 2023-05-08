@@ -1,4 +1,4 @@
-import Node from '/logic/primitives'
+import { Node } from '/logic/primitives'
 
 export default class extends Node {
 	constructor(imageUrl, x, y, width, height) {

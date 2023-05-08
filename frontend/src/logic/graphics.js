@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
-import { getNodes, initGraphicsState } from './graphicsState'
+import ReactDOM from 'react-dom'
+import { getContext, getNodes, getDOM, initGraphicsState, addNode, delNode, addDOM, delDOM } from './graphicsState'
 import clearCanvas from '/util/clearCanvas'
+
 
 const localState = {
 	mouse: [null, null],
@@ -43,12 +45,40 @@ function render(context) {
 	}
 }
 
+let rerender = null
+
+let components = []
+
+export function packDOM(el) {
+	addDOM(el)
+	components = getDOM()
+	rerender()
+}
+
+export function unpackDOM(el) {
+	delDOM(el)
+	components = getDOM()
+	rerender()
+}
+
+export {
+	addNode as pack,
+	delNode as unpack,
+	getContext
+}
+
+
 //These hooks are suppose to transform the OOP nature of react into pure functions
-export function useCanvas(FPS) {
+export function useCanvasProvider(FPS) {
 	const [ready, setReady] = useState(false)
 	const ref = useRef()
-
+	
+	//For purposes of rerender()
+	const [n, setN] = useState(false)	 
+ 
 	useEffect(() => {
+		rerender = () => setN(prev => !prev)
+
 		const canvas = ref.current
 		if(undefined === canvas) {
 			console.error("Used useCanvas() without assigning ref to the canvas element")
@@ -61,15 +91,11 @@ export function useCanvas(FPS) {
 
 		canvas.addEventListener("mousemove", mouseHandler)
 
-		setReady(true)
 		mainLoop(FPS, context)
-
+		
+		setReady(true)
 		//Add deconstructor here !!
 	}, [])
 
-	return [ref, ready]
-}
-
-export function useDrawable() {
-
+	return [ref, ready, components]
 }
