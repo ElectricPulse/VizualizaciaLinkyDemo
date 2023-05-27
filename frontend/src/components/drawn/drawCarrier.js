@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useRef} from 'react'
 
 import {ComponentNode} from '/logic/primitives'
 import CanvCarrier from './CanvCarrier'
 import Popup from '/components/Popup'
+
+import Range from '@lib/components/Range'
 
 function CarrierPopup(carrierId, sectorId) {
 	return <Popup>
@@ -11,9 +13,13 @@ function CarrierPopup(carrierId, sectorId) {
 	</Popup>
 }
 
+
 export default function(carrierId, sectorId, getTrans) {
 	const popup = new ComponentNode(() => CarrierPopup(carrierId, sectorId));
 	const carrier = new CanvCarrier(carrierId, hoverHandler, getTrans);
+
+	carrier.pack();
+
 
 	carrier.pack();
 

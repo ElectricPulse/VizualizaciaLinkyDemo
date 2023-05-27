@@ -8,9 +8,10 @@ const FETCH_TOUT = 1000
 
 //Calculating the position of all the sectors based ... on the center of their svg :)
 function fetchSectorPos(sectors) {
+
 		return new Promise((res, rej) => {
 			const positions = []
-			for(const [index, sector] of sectors.entries()) 
+			for(const [index, sector] of sectors.entries()) {
 				new Svg(`/assets/images/sectors/${sector.id}.svg`, [0, 0], null, (obj) => {	
 					//Painfully calculating center of sector
 					const d = 0.01
@@ -28,9 +29,10 @@ function fetchSectorPos(sectors) {
 					pos[1] = pos[1]/factor
 
 					positions.push(pos)
-					if(index == sectors.length-1)
+					if(positions.length=== sectors.length)
 						res(positions)
 				})
+			}
 		})
 }
 
@@ -43,16 +45,9 @@ function fetchSectors() {
 	})
 }	
 
-let path = null
 let sectors = []
 let sectorPos = []
-let i = 0
-
-function done() {
-	if(++i == 2) {
-		const carriers = drawCarriers(path, sectors, sectorPos)
-	}
-}
+let path = null;
 
 export default function() {
 	fetchSectors()
@@ -62,12 +57,11 @@ export default function() {
 	})
 	.then((pos) => {
 		sectorPos = pos
-		done()
+		const carriers = drawCarriers(path, sectors, sectorPos)
 	})
 
 	new Svg(pathSvg, [0, 0], null, (obj) => {
 		obj.pack()
 		path = obj
-		done()
 	})	
 }

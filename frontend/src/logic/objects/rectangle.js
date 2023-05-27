@@ -70,8 +70,8 @@ export default class extends Node {
 		this.pos = pos
 	}
 
-	rotateAt(angle) {
-		this.angle = angle
+	rotateAt(rot) {
+		this.rot = rot
 	}
 
 	draw(context) {
